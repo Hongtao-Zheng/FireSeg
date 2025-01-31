@@ -248,14 +248,8 @@ def sub_processor(pid , opt):
     seg_model.load_state_dict(base_weights, strict=True)
 
 
-    #change
     opt.dataset = cfg.DATASETS.dataset
     opt.batch_size = cfg.DATASETS.batch_size
-    # dataset
-    # if opt.dataset == "VOC":
-    #     dataset = Inference_VOC(set="inference",image_limitation = opt.image_limitation)
-    # else:
-    #     raise NotImplementedError
 
     # dataloader = torch.utils.data.DataLoader(dataset, batch_size=opt.batch_size, shuffle=True)
     number_per_thread_num = int(int(opt.n_each_class)/opt.thread_num)
@@ -273,7 +267,6 @@ def sub_processor(pid , opt):
     for idx in classes:
         if idx==0:
             continue
-        # print("111") 
         class_target = classes[idx]
         image_folder = 'results_mask/Image'
         image_files = [f for f in os.listdir(image_folder) if f.endswith(('jpg', 'png', 'jpeg'))]
@@ -281,7 +274,7 @@ def sub_processor(pid , opt):
         print(image_files)
         print(len(image_files))
         i=0
-        for i in range(len(image_files)):  # 遍历每个图像文件
+        for i in range(len(image_files)):  
             image_path = os.path.join(image_folder, image_files[i])
             # image_path = os.path.join(image_folder, image_file)
             file_name = os.path.basename(image_path)
@@ -293,9 +286,8 @@ def sub_processor(pid , opt):
             scale=np.array([0.5, 0.8, 1.0, 1.3, 1.8, 2.0, 3.0])
             rd_scale = float(np.random.choice(scale))
             image = cv2.resize(image, dsize=None, fx=rd_scale, fy=rd_scale)
-            # 数据增强部分
             short_edge = min(image.shape[0], image.shape[1])
-            size = 1024  # 假设大小是256，修改为你需要的值
+            size = 1024  
             if short_edge < size:
                 scale = size / short_edge
                 image = cv2.resize(image, dsize=None, fx=scale, fy=scale)
@@ -313,10 +305,8 @@ def sub_processor(pid , opt):
             # image, mask = data_aug.random_crop_author([image, mask], (self.size, self.size))
             # image, _ = data_aug.random_crop_author([image, None], (size, size))
             image = np.array(image).astype(np.uint8)
-            # 标准化图像
             image = (image / 127.5 - 1.0).astype(np.float32)
             
-            # 将图像转换为张量
             image = torch.from_numpy(image).permute(2, 0, 1)
             image = image.unsqueeze(0)
             print("second")
