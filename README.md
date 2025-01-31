@@ -1,4 +1,4 @@
-# FireDM
+# FireSeg
 Official code for 'FireSeg: A Weakly Supervised Fire Segmentation Framework via Pre-trained Latent Diffusion Models'
 
 
