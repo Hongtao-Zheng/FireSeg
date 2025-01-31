@@ -7,6 +7,7 @@ Official code for 'FireSeg: A Weakly Supervised Fire Segmentation Framework via 
 conda create -n FireSeg python=3.10
 ```
 CUDA==12.1
+
 Then install other packages:
 ```sh
 python -m pip install -r requirements.txt
@@ -33,6 +34,7 @@ data/
 
 ### Running Command
 Training the Flame-Decoder
+
 Reminder: Model training requires at least 1×A800 80G.
 
 ```sh
