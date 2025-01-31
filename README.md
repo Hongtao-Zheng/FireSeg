@@ -33,7 +33,7 @@ data/
 
 ### Running Command
 Training the Flame-Decoder
-
+Reminder: Model training requires at least 1×A800 80G.
 
 ```sh
 # For Training Mask-Decoder
